@@ -1,4 +1,4 @@
-# tinycounter
+# tinycounter ![example image hit counter](https://count.mat.dog/rainy/mn6)
 
 `tinycounter` is a web service that provides customizable hit counters as images. It uses Redis for storage and supports different styles for the counter images.
 
