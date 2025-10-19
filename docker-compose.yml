@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:8.2.2-alpine
+    restart: unless-stopped
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}", "--appendonly", "yes", "--save", "60", "1"]
+    volumes:
+      - redis-data:/data
+
+  app:
+    env_file:
+      - .env
+    build:
+      context: .
+      args:
+        APP_PORT: ${APP_PORT}
+    depends_on:
+      - redis
+    environment:
+      - REDIS_ADDR=${REDIS_ADDR_IN_CONTAINER}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_DB=${REDIS_DB}
+      - REDIS_PREFIX=${REDIS_PREFIX}
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    restart: unless-stopped
+
+volumes:
+  redis-data:

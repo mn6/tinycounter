@@ -1,0 +1,8 @@
+rainy:
+  width: 5
+  height: 13
+  suffixWidth: 11
+  prefixWidth: 14
+basic-green:
+  width: 8
+  height: 8
